@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--style sheets-->
+    <link rel="stylesheet" href="{% static 'bootstrap-5.2.3-dist/css/bootstrap.css' %}">
+    <link rel ="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <title>{{project_name}} | {{page_name}}</title>
+</head>
+<body>
+
+    {% include "partials/navbar_e.html" %}
+    {% block content %}{% endblock content %} 
+    {% include "partials/footer.html" %}
+<!--scripts-->
+<script src="{% static 'bootstrap-5.2.3-dist/js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>
