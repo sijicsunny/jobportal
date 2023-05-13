@@ -50,3 +50,6 @@ class JobPostModel(models.Model):
     last_date = models.DateField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+
+    def __str__(self)-> str:
+        return self. post_name

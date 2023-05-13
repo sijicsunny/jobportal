@@ -1,0 +1,58 @@
+{% extends 'base_a.html' %} {% block content %}
+<div class="container-lg d-flex flex-column gap-3 py-3">
+  <div class="row">
+    <div class="col">
+      <h1>Employer Details</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table table-bordered align-middle shadow-sm">
+        <thead>
+          <tr>
+            <th class="text-center">Field</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ID</td>
+            <td>{{employer.id}}</td>
+          </tr>
+          <tr>
+            <td>Company Name</td>
+            <td>{{employer.company_name}}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>{{employer.address}}</td>
+          </tr>
+          <tr>
+            <td>Contact No</td>
+            <td>{{employer.contact_no}}</td>
+          </tr>
+          
+          <tr>
+            <th>Actions</th>
+            <td>
+              <div class="d-flex gap-3 flex-wrap">
+                <a
+                  href="{% url 'accounts:employer_update' employer.id %}"
+                  class="btn btn-primary"
+                  >Edit</a
+                >
+                <a
+                  href="{% url 'accounts:employer_delete' employer.id %}"
+                  class="btn btn-danger"
+                  >Delete</a
+                >
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

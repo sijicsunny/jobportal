@@ -5,6 +5,7 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 
+#user profile
 
 class ProfileModel(models.Model):
     class GenderChoices(models.TextChoices):
@@ -43,7 +44,7 @@ class ProfileModel(models.Model):
     qualification = models.CharField(max_length=64,choices=QualificationChoices.choices)
     course = models.CharField(max_length=64,choices=CourseChoices.choices)
     institution = models.CharField(max_length=64)
-    year_of_passing = models.ImageField()
+    year_of_passing = models.IntegerField()
     percetage = models.IntegerField()
     experience = models.IntegerField()
     skills = models.CharField(max_length=150)
@@ -62,6 +63,7 @@ class ProfileModel(models.Model):
     def get_absolute_url(self):
         return reverse("accounts:profile_detail", args=self.pk)
     
+#employer profile
 
 class EmployerModel(models.Model):
 
@@ -73,3 +75,6 @@ class EmployerModel(models.Model):
 
     def get_absolute_url(self):
         return reverse("accounts:profile_detail", args=self.pk)
+    
+    def __str__(self)-> str:
+        return self. company_name

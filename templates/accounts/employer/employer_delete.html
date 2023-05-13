@@ -1,0 +1,36 @@
+{% extends 'base_a.html' %} {% block content %}
+<div class="container-lg d-flex flex-column gap-3 py-3">
+  <div class="row">
+    <div class="col">
+      <h1>Employer Delete</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Delete Employer?</h4>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Are you sure want to delete?</p>
+          <p>"{{employer}}"</p>
+        </div>
+        <div class="card-footer">
+          <form action="" method="post">
+            {% csrf_token %}
+            <div class="d-flex gap-3">
+              <a
+                href="{% url 'accounts:employer_detail' employer.id %}"
+                class="btn btn-secondary"
+                >Cancel</a
+              >
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -59,3 +59,27 @@ class AddEmployerView(views.CreateView):
     model = models.EmployerModel
     form_class = forms.UserForm
     success_url = reverse_lazy("accounts:login")
+
+
+class EmployerListView(views.ListView):
+        template_name = "accounts/employer/employer_list.html"
+        model = models.EmployerModel
+        context_object_name = "employers"
+    
+class EmployerDetailView(views.DetailView):
+        template_name = "accounts/employer/employer_detail.html"
+        model = models.EmployerModel
+        context_object_name = "employers"
+
+class EmployerUpdateView(views.UpdateView):
+        template_name = "accounts/employer/employer_update.html"
+        model = models.EmployerModel
+        form_class = forms.UserForm
+        success_url = reverse_lazy("accounts:employer_list")
+    
+class EmployerDeleteView(views.DeleteView):
+        template_name = "accounts/employer/employer_delete.html"
+        model = models.EmployerModel
+        success_url = reverse_lazy("accounts:employer_list")
+        context_object_name = "employers"   
+

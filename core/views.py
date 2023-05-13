@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import generic as views 
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
-from core import forms, models
+from core  import forms, models
 
 category = [
     {
@@ -66,7 +66,31 @@ class JobPostView(views.CreateView):
         template_name = "core/jobpost/jobpost.html"
         model = models.JobPostModel
         form_class = forms.JobPostForm
-        success_url = reverse_lazy("core:ehome")
+        success_url = reverse_lazy("core:jobpost_list")
+
+
+class JobpostListView(views.ListView):
+        template_name = "core/jobpost/jobpost_list.html"
+        model = models.JobPostModel
+        context_object_name = "jobposts"
+
+class JobpostDetailView(views.DetailView):
+        template_name = "core/jobpost/jobpost_detail.html"
+        model = models.JobPostModel
+        context_object_name = "jobpost"
+
+class JobpostUpdateView(views.UpdateView):
+        template_name = "core/jobpost/jobpost_update.html"
+        model = models.JobPostModel
+        form_class = forms.JobPostForm
+        success_url = reverse_lazy("core:jobpost_list")
+    
+class JobpostDeleteView(views.DeleteView):
+        template_name = "core/jobpost/jobpost_delete.html"
+        model = models.JobPostModel
+        success_url = reverse_lazy("core:jobpost_list")
+        context_object_name = "jobpost"
+
 
 
 

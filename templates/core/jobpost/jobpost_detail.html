@@ -1,0 +1,95 @@
+{% extends 'base_e.html' %} {% block content %}
+<div class="container-lg d-flex flex-column gap-3 py-3">
+  <div class="row">
+    <div class="col">
+      <h1>Job Post Details</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table table-bordered align-middle shadow-sm">
+        <thead>
+          <tr>
+            <th class="text-center">Field</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ID</td>
+            <td>{{jobpost.id}}</td>
+          </tr>
+          <tr>
+            <td>Category</td>
+            <td>{{jobpost.category}}</td>
+          </tr>
+          <tr>
+            <td>Post Name</td>
+            <td>{{jobpost.post_name}}</td>
+          </tr>
+          <tr>
+            <td>Qualification</td>
+            <td>{{jobpost.qualification}}</td>
+          </tr>
+          <tr>
+            <td>Skills</td>
+            <td>{{jobpost.skills}}</td>
+          </tr>
+          <tr>
+            <td>Experience</td>
+            <td>{{jobpost.experience}}</td>
+          </tr>
+          <tr>
+          <tr>
+            <td>No of Vacancy</td>
+            <td>{{jobpost.no_of_vacancy}}</td>
+          </tr>
+              
+          <tr>
+            <td>Location</td>
+            <td>{{jobpost.location}}</td>
+          </tr>
+          <tr>
+            <td>Salary</td>>
+            <td>{{jobpost.salary}}</td>
+          </tr>
+          <tr>
+            <td>Employment Type</td>
+            <td>{{jobpost.employment_type}}</td>
+            </tr>
+            <tr>
+                <td>Last Date</td>
+                <td>{{jobpost.last_date}}</td>
+            </tr>
+          <tr>
+            <td>Created On</td>
+            <td>{{jobpost.created_on}}</td>
+          </tr>
+          <tr>
+            <td>Updated On</td>
+            <td>{{jobpost.updated_on}}</td>
+          </tr>
+          <tr>
+            <th>Actions</th>
+            <td>
+              <div class="d-flex gap-3 flex-wrap">
+                <a
+                  href="{% url 'core:jobpost_update' jobpost.id %}"
+                  class="btn btn-primary"
+                  >Edit</a
+                >
+                <a
+                  href="{% url 'core:jobpost_delete' jobpost.id %}"
+                  class="btn btn-danger"
+                  >Delete</a
+                >
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -8,7 +8,30 @@
         <div class="navbar-nav">
           <a class="nav-link active" aria-current="page" href="{% url 'accounts:profile' %}">Profile</a>
           
-          <a class="nav-link active" aria-current="page" href="{% url 'core:jobpost' %}">Post Job</a>
+          
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Job Post
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="{% url 'core:jobpost' %}"
+                  >Add new Job Post</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'core:jobpost_list' %}">Show Job Posts</a
+                >
+              </li>
+            </ul>
+          </li>
+
           <a class="nav-link active" aria-current="page" href="{% url 'accounts:signup' %}">View Applicant</a>
           <a class="nav-link active" aria-current="page" href="{% url 'accounts:login' %}">Change Password</a>
           <a class="nav-link active" aria-current="page" href="{% url 'accounts:login' %}">Logout</a>
