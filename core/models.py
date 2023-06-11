@@ -1,14 +1,14 @@
 from django.db import models
 
 # Create your models here.
-class login(models.Model):
-    Email = models.EmailField(max_length=64)
+#class login(models.Model):
+  #  Email = models.EmailField(max_length=64)
 
 
-class Register(models.Model):
-    Name = models.CharField(max_length=64)
-    Email = models.CharField(max_length=64)
-    Password = models.TextField(max_length=500)
+#class Register(models.Model):
+ #   Name = models.CharField(max_length=64)
+ #   Email = models.CharField(max_length=64)
+ #   Password = models.TextField(max_length=500)
    # contact_no = models.(max_length=500)
 
 class JobPostModel(models.Model):
@@ -26,7 +26,7 @@ class JobPostModel(models.Model):
         sales ="sales","Sales"
         
 
-    class QualiChoices(models.TextChoices):
+    class QualificationChoices(models.TextChoices):
         Phd = "phd","PhD"
         PG = "PG","Post Graduate"
         UG = "UG","Under Graduate"
@@ -40,7 +40,7 @@ class JobPostModel(models.Model):
 
     category  = models.CharField(max_length=64,choices=CatChoices.choices)
     post_name = models.CharField(max_length=64)
-    qualification = models.CharField(max_length=64,choices=QualiChoices.choices)
+    qualification = models.CharField(max_length=64,choices=QualificationChoices.choices)
     skills = models.TextField(max_length=60)
     experience = models.IntegerField()
     no_of_vacancy = models.IntegerField() 
@@ -53,3 +53,12 @@ class JobPostModel(models.Model):
 
     def __str__(self)-> str:
         return self. post_name
+    
+#category model
+
+class Category(models.Model):
+    cat_name = models.CharField(max_length=64)
+    no_of_vacancy = models.IntegerField()
+    image = models.ImageField(
+        upload_to="core/category/image/", default="default/logo.png"
+    )

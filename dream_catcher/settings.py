@@ -133,3 +133,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #authentication redirect urls
 #LOGIN_REDIRECT_URL ="core:adminhome"
 #LOGIN_URL ="accounts:login"
+
+#email integration
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR /'temp'
+EMAIL_HOST = "smtp.google.com"
+EMAIL_PORT = 487
+EMAIL_HOST_USER = "admin.jobportal@gmail.com"
+EMAIL_HOST_PASSWORD = "password_here"
+EMAIL_HOST_TLS = True

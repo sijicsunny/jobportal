@@ -1,0 +1,29 @@
+{%extends 'base.html' %}
+{% block content %}
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+      <div class="col">
+        <h1>Logout</h1>
+      </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
+     <div class="card card-body">
+        <p>Successfully Logout</p>
+        <a href="{% url 'accounts:login'  %}">Login Again</a>
+        <a href="{% url 'core:home'  %}">Go to Home</a>
+        
+      </div>
+  </div>
+  </div>
+</div>
+<br>
+<br>
+
+
+
+{% endblock content %} 

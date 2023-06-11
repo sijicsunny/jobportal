@@ -1,11 +1,24 @@
 <nav class="navbar navbar-expand-lg bg-info">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">JOB PORTAL</a>
+      <a class="navbar-brand" href="#">Dream Catcher</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
+
+          {% if user.is_authenticated %}
+          <li class="nav-item ms-auto">
+            {% if user.profilemodel %}
+            <a class="nav-link" href="{% url 'accounts:employer_detail' user.EmployerModel.id %}">{{user}}</a>
+            {% else %}
+            <a class="nav-link" href="{% url 'accounts:profile' %}">{{user}}</a>
+            {% endif %}
+            {% else %}
+            {% endif %}
+
+          </li>
+
           <a class="nav-link active" aria-current="page" href="{% url 'accounts:profile' %}">Profile</a>
           
           
@@ -33,8 +46,8 @@
           </li>
 
           <a class="nav-link active" aria-current="page" href="{% url 'accounts:signup' %}">View Applicant</a>
-          <a class="nav-link active" aria-current="page" href="{% url 'accounts:login' %}">Change Password</a>
-          <a class="nav-link active" aria-current="page" href="{% url 'accounts:login' %}">Logout</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'accounts:password_change' %}">Change Password</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'accounts:logout' %}">Logout</a>
           <a class="nav-link" href="#"></a>
           <a class="nav-link" href="#"></a>
           <a class="nav-link disabled"></a>

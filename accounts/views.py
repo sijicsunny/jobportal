@@ -48,6 +48,29 @@ class LoginView(auth_views.LoginView):
 
 class LogoutView(auth_views.LogoutView):
         pass
+        template_name = "registration/logout.html"
+        #success_url = reverse_lazy("core:home")
+
+
+class PasswordResetView(auth_views.PasswordResetView):
+     #template_name = "registration/password_reset_form.html"
+     success_url = reverse_lazy("accounts:password_reset_done")
+
+class PasswordResetDoneView(auth_views.PasswordResetDoneView):
+    template_name = "registration/password_reset_done.html"
+    success_url = reverse_lazy("accounts:password_reset_done")
+
+class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+    #template_name = "registration/password_reset_confirm.html"
+    success_url = reverse_lazy("accounts:password_reset_done")
+
+class PasswordResetComleteView(auth_views.PasswordResetCompleteView):
+     success_url = reverse_lazy("accounts:password_reset_done")
+
+class PasswordResetView(auth_views.PasswordResetView):
+     success_url = reverse_lazy("accounts:password_reset_done")
+      
+
 
 class SignupView(views.CreateView):
     template_name = "registration/signup.html"
