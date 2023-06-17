@@ -131,8 +131,8 @@ MEDIA_ROOT =BASE_DIR/"media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 #authentication redirect urls
-#LOGIN_REDIRECT_URL ="core:adminhome"
-#LOGIN_URL ="accounts:login"
+LOGIN_REDIRECT_URL ="core:ahome"
+LOGIN_URL ="accounts:login"
 
 #email integration
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'

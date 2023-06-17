@@ -16,7 +16,7 @@
         <form action="" method="post" class="django-form" >
           {% csrf_token %} {{form.as_p}}
           <div class="mb-3">
-            <a href="{% url 'password_reset' %}" class="link dark">Forgot your Password?</a>
+            <a href="{% url 'accounts:password_reset' %}" class="link dark">Forgot your Password?</a>
           </div>
           <button class="btn btn-primary" type="submit">Login</button>
           
