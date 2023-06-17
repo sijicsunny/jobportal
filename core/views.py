@@ -75,6 +75,7 @@ class JobPostView(views.CreateView):
     model = models.JobPostModel
     form_class = forms.JobPostForm
     success_url = reverse_lazy("core:jobpost_list")
+    context_object_name = "jobpost"
 
 
 class JobpostListView(views.ListView):

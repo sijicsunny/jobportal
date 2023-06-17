@@ -108,7 +108,7 @@ class AddEmployerView(views.CreateView):
     model = models.EmployerModel
     form_class = forms.UserForm
     success_url = reverse_lazy("accounts:login")
-
+    context_object_name = "employer"
 
 class EmployerListView(views.ListView):
     template_name = "accounts/employer/employer_list.html"
