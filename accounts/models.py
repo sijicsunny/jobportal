@@ -1,9 +1,7 @@
-from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.urls import reverse
+
 
 # user profile
 class ProfileModel(models.Model):
@@ -43,10 +41,13 @@ class ProfileModel(models.Model):
     year_of_passing = models.IntegerField()
     percetage = models.IntegerField()
     experience = models.IntegerField()
-    skills = models.CharField(max_length=150)
-    resume = models.FileField()
+    skills = models.TextField(max_length=150, blank=True, null=True)
+    resume = models.FileField(
+        upload_to="accounts/profile/resumes/", blank=True, null=True
+    )
     image = models.ImageField(
-        upload_to="accounts/profile/image/", default="default/user.png"
+        upload_to="accounts/profile/image/",
+        default="default/user.png",
     )
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     status = models.BooleanField(default=True)
@@ -57,7 +58,8 @@ class ProfileModel(models.Model):
         return f"{self.first_name} {self.last_name}"
 
     def get_absolute_url(self):
-        return reverse("accounts:profile_detail", args=self.pk)
+        return reverse("accounts:profile_detail", args=(self.pk,))
+
 
 # employer profile
 class EmployerModel(models.Model):
@@ -68,7 +70,7 @@ class EmployerModel(models.Model):
     status = models.BooleanField(default=True)
 
     def get_absolute_url(self):
-        return reverse("accounts:profile_detail", args=self.pk)
+        return reverse("accounts:profile_detail", args=(self.pk,))
 
     def __str__(self) -> str:
         return self.company_name

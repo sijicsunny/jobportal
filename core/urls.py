@@ -12,6 +12,7 @@ urlpatterns = [
 
     path("jobpost/create/", views.JobPostView.as_view(), name="jobpost"),
     path("jobposts/list/", views.JobpostListView.as_view(), name="jobpost_list"),
+    path("jobposts/list/?category=<int:pk>", views.JobpostListByCategoryView.as_view(), name="jobpost_list_by_category"),
     path("jobposts/<int:pk>/detail/", views.JobpostDetailView.as_view(), name="jobpost_detail"),
     path("jobposts/<int:pk>/update/", views.JobpostUpdateView.as_view(), name="jobpost_update"),
     path("jobposts/<int:pk>/delete/", views.JobpostDeleteView.as_view(), name="jobpost_delete"),

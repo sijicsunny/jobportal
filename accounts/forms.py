@@ -13,8 +13,6 @@ class EmprProfileForm(forms.ModelForm):
         model = models.EmployerModel
         exclude = ("user", "status")
      
-
-
 class UserForm(UserCreationForm):
     class Meta:
         model = get_user_model()
