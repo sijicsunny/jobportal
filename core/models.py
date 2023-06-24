@@ -3,17 +3,12 @@ from django.db import models
 # Create your models here.
 # class login(models.Model):
 #  Email = models.EmailField(max_length=64)
-
-
 # class Register(models.Model):
 #   Name = models.CharField(max_length=64)
 #   Email = models.CharField(max_length=64)
 #   Password = models.TextField(max_length=500)
 # contact_no = models.(max_length=500)
-
-
 # category model
-
 
 class Category(models.Model):
     name = models.CharField(max_length=64)

@@ -1,8 +1,38 @@
-{%extends 'base_u.html' %}
+{%extends 'base.html' %}
 {% block content %}
 <html>
     <body>
-       <h3>Welcome User</h3>
+       <h3 class="text-center">Welcome user</h3>
+<div class="container-fluid">
+    <div class="row row-cols-2">
+        <div class="bg-secondary col-auto col-md-2 min-vh-100">
+            <div class="bg-dark p-2">
+                
+                <ul class="nav nav-pills flex-column mt-4">
+                    
+                    <li class="nav-item">
+                        <a href="{% url 'accounts:employer_list' %}" class="nav-link text-blue">
+                            <i class="fs-5 fa fa-table-list"><span class="fs-4 d-none d-sm-inline">Search</span></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link text-blue">
+                            <i class="fs-5 fa fa-table-list"><span class="fs-4 d-none d-sm-inline">View Applied</span></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'accounts:password_change' %}" class="nav-link text-blue">
+                            <i class="fs-5 fa fa-table-list"><span class="fs-4 d-none d-sm-inline">Change password</span></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
     </body>
 </html>
 

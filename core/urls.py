@@ -7,7 +7,7 @@ urlpatterns = [
     path("adminhome/", views.AdminHomeView.as_view(),name="ahome"),
     path("emprhome/", views.EmployerHomeView.as_view(),name="ehome"),
     path("userhome/", views.UserHomeView.as_view(),name="uhome"),
-
+    path("search/", views.SearchView.as_view(),name="search"),
     #jobpost
 
     path("jobpost/create/", views.JobPostView.as_view(), name="jobpost"),

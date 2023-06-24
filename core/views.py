@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Dict
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.views import generic as views
@@ -44,7 +44,17 @@ class HomeView(views.TemplateView):
         context["categories"] = catergories
         context.update(common_data)
         return context
+    
+class SearchView(views.TemplateView):
+    template_name ="search.html"
+    def get_context_data(self, **kwargs):
+        context =super().get_context_data(**kwargs)
+        kw = self.request.GET["keyword"]
+        result = models.JobPostModel.objects.filter(post_name__contain=kw)
+        print(result)
+        context["result"] =result
 
+        return context
 
 class AdminHomeView(views.TemplateView):
     template_name = "core/admin_home.html"
