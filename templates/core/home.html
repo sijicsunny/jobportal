@@ -1,4 +1,4 @@
-{%extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %}
 <br />
 <div class="container">
   <div class="text-black text-center">
@@ -7,10 +7,12 @@
   </div>
   <br />
   <div>
-    <form class="d-flex" role="search">
+    <form action="{% url 'core:search' %}" class="d-flex" method="get" role="search">
+      {% csrf_token %}
       <input
         class="form-control me-2"
         type="search"
+        name="keyword"
         placeholder="Search"
         aria-label="Search"
       />

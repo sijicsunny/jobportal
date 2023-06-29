@@ -37,24 +37,27 @@ common_data = {
 
 class HomeView(views.TemplateView):
     template_name = "core/home.html"
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         catergories = models.Category.objects.all()
         context["categories"] = catergories
         context.update(common_data)
         return context
-    
+
+
 class SearchView(views.TemplateView):
-    template_name ="search.html"
+    template_name = "search.html"
+
     def get_context_data(self, **kwargs):
-        context =super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         kw = self.request.GET["keyword"]
-        result = models.JobPostModel.objects.filter(post_name__contain=kw)
+        result = models.JobPostModel.objects.filter(post_name__icontains=kw)
         print(result)
-        context["result"] =result
+        context["results"] = result
 
         return context
+
 
 class AdminHomeView(views.TemplateView):
     template_name = "core/admin_home.html"
@@ -112,6 +115,7 @@ class JobpostDeleteView(views.DeleteView):
     model = models.JobPostModel
     success_url = reverse_lazy("core:jobpost_list")
     context_object_name = "jobpost"
+
 
 class JobpostListByCategoryView(views.ListView):
     template_name = "core/jobpost/jobpost_list.html"
