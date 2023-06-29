@@ -6,15 +6,16 @@
     <h1>Find Your Dream Job</h1>
   </div>
   <br />
-  <div class="container">
-    <div class="row">
-      <div class="col-ms-6-mx-auto">
-    <form class="d-flex" action="{% url 'core:search' %}" method="GET">
-      <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search" />
+  <div>
+    <form class="d-flex" role="search">
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
-    </div>
-    </div>
   </div>
 </div>
 
@@ -28,7 +29,7 @@
     </div>
   </div>
   <div class="row row-cols-2">
-    {% for category in categorie %}
+    {% for category in categories %}
     <div class="col">
         <a href="{% url 'core:jobpost_list_by_category' category.id %}" class="link">
             <div
