@@ -9,9 +9,19 @@
             <div class="bg-dark p-2">
                 
                 <ul class="nav nav-pills flex-column mt-4">
-                    
                     <li class="nav-item">
-                        <a href="{% url 'accounts:employer_list' %}" class="nav-link text-blue">
+                        
+                            <form action="{% url 'core:search' %}" class="d-flex" method="get" role="search">
+                              <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
+                              <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                          
+                        
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a href="{% url 'core:search' %}" class="nav-link text-blue">
                             <i class="fs-5 fa fa-table-list"><span class="fs-4 d-none d-sm-inline">Search</span></i>
                         </a>
                     </li>

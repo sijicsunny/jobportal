@@ -3,6 +3,30 @@ from django.db import models
 from django.urls import reverse
 
 
+class TimestampedModel(models.Model):
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class BaseUserModel(TimestampedModel):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+
+class QualificationModel(TimestampedModel):
+    name = models.CharField(max_length=64)
+    course_name = models.CharField(max_length=64)
+    description = models.TextField(max_length=500)
+
+    def __str__(self):
+        return f"{self.name}. {self.course_name}"
+
+
 # user profile
 class ProfileModel(models.Model):
     class GenderChoices(models.TextChoices):
@@ -10,37 +34,19 @@ class ProfileModel(models.Model):
         FEMALE = "F", "Female"
         TRANSGENDER = "T", "Transgender"
 
-    class QualificationChoices(models.TextChoices):
-        Phd = "phd", "PhD"
-        PG = "PG", "Post Graduate"
-        UG = "UG", "Under Graduate"
-        Diploma = "Dip", "Diploma"
-        X = "X", "SSLCC"
-
-    class CourseChoices(models.TextChoices):
-        BBA = "Bba", "BBA"
-        Bcom = "Bcom", "Bcom"
-        BCA = "Bca", "BCA"
-        Mcom = "Mcom", "Mcom"
-        MBA = "Mba", "MBA"
-        Mca = "Mca", "MCA"
-        civil = "civil", "Civil Engineering"
-        Nursing = "Nurse", "Bsc Nursing"
-
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
     address = models.TextField(max_length=150)
     contact_no = models.BigIntegerField()
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=2, choices=GenderChoices.choices)
-    qualification = models.CharField(
-        max_length=64, choices=QualificationChoices.choices
+    qualification = models.ForeignKey(
+        QualificationModel, on_delete=models.SET_NULL, blank=True, null=True
     )
-    course = models.CharField(max_length=64, choices=CourseChoices.choices)
     institution = models.CharField(max_length=64)
     year_of_passing = models.IntegerField()
-    percetage = models.IntegerField()
-    experience = models.IntegerField()
+    percentage = models.DecimalField(decimal_places=2, max_digits=3)
+    experience = models.DecimalField(decimal_places=2, max_digits=2)
     skills = models.TextField(max_length=150, blank=True, null=True)
     resume = models.FileField(
         upload_to="accounts/profile/resumes/", blank=True, null=True
@@ -49,7 +55,6 @@ class ProfileModel(models.Model):
         upload_to="accounts/profile/image/",
         default="default/user.png",
     )
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     status = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -74,3 +79,10 @@ class EmployerModel(models.Model):
 
     def __str__(self) -> str:
         return self.company_name
+
+
+class JobSeekerModel(BaseUserModel):
+    profile = models.OneToOneField(ProfileModel, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self) -> str:
+        return f"{self.user.username}"

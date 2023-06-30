@@ -31,6 +31,7 @@ class ProfileDetailView(LoginRequiredMixin, views.DetailView):
     model = models.ProfileModel
     context_object_name = "profile"
 
+
 class ProfileUpdateView(LoginRequiredMixin, views.UpdateView):
     template_name = "accounts/profile/profile_update.html"
     model = models.ProfileModel
@@ -110,6 +111,7 @@ class AddEmployerView(views.CreateView):
     success_url = reverse_lazy("accounts:login")
     context_object_name = "employer"
 
+
 class EmployerListView(views.ListView):
     template_name = "accounts/employer/employer_list.html"
     model = models.EmployerModel
@@ -134,3 +136,21 @@ class EmployerDeleteView(views.DeleteView):
     model = models.EmployerModel
     success_url = reverse_lazy("accounts:employer_list")
     context_object_name = "employer"
+
+
+class DashboardView(LoginRequiredMixin, views.TemplateView):
+    template_name = "accounts/dashboard.html"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        actions = []
+        if hasattr(user, "jobseekermodel"):
+            actions = ["My Jobs", "Notifications", "Profile Settings"]
+            # here you can add custom data the above action is for an example
+        elif user.is_superuser:
+            actions = [""]
+        elif hasattr(user, "employermodel"):
+            actions = ["Post Jobs"]
+        context.update({"actions": actions})
+        return context

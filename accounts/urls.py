@@ -23,6 +23,8 @@ urlpatterns = [
     path("eprofile/", views.EmpprofileCreateView.as_view(), name="profile"),
     path("add/", views.AddEmployerView.as_view(), name="create"),
 
+    path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
+
     #employers
     path("employers/list/", views.EmployerListView.as_view(), name="employer_list"),
     path("employers/<int:pk>/detail/", views.EmployerDetailView.as_view(), name="employer_detail"),

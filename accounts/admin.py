@@ -6,4 +6,4 @@ from accounts import models
 
 admin.site.register(models.ProfileModel)
 admin.site.register(models.EmployerModel)
-#admin.site.register(models.JobSeekerModel)
+admin.site.register(models.JobSeekerModel)

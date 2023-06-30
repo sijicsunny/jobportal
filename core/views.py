@@ -128,6 +128,17 @@ class JobpostListByCategoryView(views.ListView):
         return q
 
 
+class DetailView(views.DetailView):
+    template_name = "details.html"
+    model = models.JobPostModel
+    context_object_name = "jobpost"
+
+
+
+
+
+   
+
 # class Register(views.CreateView):
 #       template_name = "core/register.html"
 # model = models.JobseekerModel

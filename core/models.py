@@ -53,6 +53,7 @@ class JobPostModel(models.Model):
 
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
     post_name = models.CharField(max_length=64)
+    #company_name = models.TextField(max_length=64)
     qualification = models.CharField(
         max_length=64, choices=QualificationChoices.choices
     )
@@ -70,5 +71,6 @@ class JobPostModel(models.Model):
 
     def __str__(self) -> str:
         return self.post_name
+
 
 

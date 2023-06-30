@@ -9,13 +9,25 @@
       <hr />
       {% for result in results %}
       <div class="row">
+        
         <div class="col-md-4">
             <div class="card card-body">
-                {{result}}
+                <a href="{% url 'core:more' result.id %}">{{result}}</a>
+                
             </div>
         </div>
       </div>
-      {% endfor %}
+
+      {% empty%}
+    <div class="col">
+      <div class="card_body">
+        <h5 class="card-title">No result found!</h5>
+      </div>
+    </div>
+    {% endfor %}
+
+
+      
     </div>
   </div>
 </div>

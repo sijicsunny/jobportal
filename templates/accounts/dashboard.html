@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container-fluid py-3">
+  <div class="row">
+    <!-- sidebar -->
+    <div class="col-2 border border-1 py-3">
+      {% if user.is_superuser %}
+        {% include 'accounts/partials/_admin_navlinks.html' %}
+      {% elif user.employermodel %}
+        {% include 'accounts/partials/_employer_navlinks.html' %}
+      {% elif user.jobseekermodel %}
+        {% include 'accounts/partials/_jobseeker_navlinks.html' %}
+      {% endif %}
+    </div>
+    <!-- Content -->
+    <div class="col">
+      <div class="d-flex flex-column gap-3">
+        <h1 class="m-0">Dashboard</h1>
+        <hr class="m-0 bg-light"/>
+        {% if user.is_superuser %}
+            {% include 'accounts/partials/_admin_tab_contents.html' %}
+        {% elif user.employermodel %}
+            {% include 'accounts/partials/_employer_tab_contents.html' %}
+        {% elif user.jobseekermodel %}
+            {% include 'accounts/partials/_jobseeker_tab_contents.html' %}
+        {% endif %}
+       
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
