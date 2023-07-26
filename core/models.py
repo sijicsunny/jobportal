@@ -69,8 +69,33 @@ class JobPostModel(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
+   # parents = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
+
+
     def __str__(self) -> str:
         return self.post_name
 
+#
+class AppliedModel(models.Model):
+    #name = models.CharField(max_length=64)
+   # company = models.CharField(max_length=200, default="")
+    fk = models.ForeignKey(JobPostModel, on_delete=models.CASCADE)
+    def post_name(self):
+        return self.fk.post_name
+    #post_name = models.ForeignKey(JobPostModel, on_delete=models.SET_NULL, blank=True, null=True)
+    resume = models.FileField(
+        upload_to="core/applied/resumes/", blank=True, null=True)
+    date = models.DateTimeField(auto_now_add=True)
+    
+ 
+    def __str__ (self):
+        return str(self.name)
 
-
+#class Applied(models.Model):
+  #  resume = models.FileField(
+  #      upload_to="core/applied/resumes/", blank=True, null=True
+   # )
+    
+    #experience = models.DecimalField(decimal_places=2, max_digits=2)
+   #skills = models.TextField(max_length=150, blank=True, null=True)
+    

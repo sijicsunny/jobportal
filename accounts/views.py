@@ -16,6 +16,7 @@ class ProfileCreateView(LoginRequiredMixin, views.CreateView):
     model = models.ProfileModel
     form_class = forms.ProfileForm
     login_url = reverse_lazy("accounts:login")
+    context_object_name = "profile"
     extra_context = {
         "project_name": "Dream_Catcher",
         "page_name": "user profile create",

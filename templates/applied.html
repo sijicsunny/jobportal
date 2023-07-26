@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+
+<p><p>
+<div class="col"></div>
+    <div class="col ">
+
+        <div 
+        class="card text-center border-warning"
+        style="width: 800px; height: auto"
+        >
+        <div class="card-body ">
+
+            <form action="" method="post" class="django-form" >
+                {% csrf_token %} {{form.as_p}}
+
+            
+            <h5 class="card-title">{{jobpost.post_name}}</h5>
+            
+            <p class="card-text">Post Name: {{jobpost.post_name}}</p>
+            
+
+            <button class="btn btn-primary" type="submit">Submit</button>
+          
+        </form>
+            
+           
+        </div>
+    </a>
+  </div>
+</div>
+
+
+{% endblock %}
