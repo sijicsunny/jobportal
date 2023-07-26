@@ -21,15 +21,16 @@
             <p class="card-text">Salary: {{jobpost.salary}}</p>
             <p class="card-text">Employment Type: {{jobpost.employment_type}}</p>
             <p class="card-text">Last Date: {{jobpost.last_date}}</p>
+
             {% if jobpost.qualification == profile.qualification %}
             <a
-                  href="{% url 'core:jobpost_update' jobpost.id %}"
+                  href="{% url 'core:apply' jobpost.id %}"
                   class="btn btn-primary"
                   >Apply</a
                 >
-            {% else %}
-            <p class="text-danger">You'r not Eligible to apply this post!! </p>
-            {% endif %}
+                {% else %}
+                <p class="text-danger">You'r not Eligible to apply this post!! </p>
+                {% endif %}
         </div>
     </a>
   </div>

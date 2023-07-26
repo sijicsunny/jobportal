@@ -13,3 +13,7 @@ class JobPostForm(forms.ModelForm):
         model = models.JobPostModel
         fields =["category","post_name","qualification","skills","experience","no_of_vacancy","location","salary","employment_type","last_date"]
         
+class AppliedForm(forms.ModelForm):
+    class Meta:
+        model = models.AppliedModel
+        fields =["post_name","resume"]

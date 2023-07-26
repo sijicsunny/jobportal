@@ -5,7 +5,7 @@ from django.views import generic as views
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 from core import forms, models
-
+#from accounts import forms, models
 category = [
     {
         "name": "Marketing",
@@ -132,6 +132,25 @@ class DetailView(views.DetailView):
     template_name = "details.html"
     model = models.JobPostModel
     context_object_name = "jobpost"
+
+class job_applyView(views.CreateView):
+    template_name = "applied.html"
+    model = models.AppliedModel
+    form_class = forms.AppliedForm
+    context_object_name = "jobpost"
+
+ 
+    
+
+
+
+
+#class PreView(views.DetailView):
+  #  template_name = "preview.html"
+  #  model = models.ProfileModel
+  #  context_object_name = "profile"
+
+
 
 
 

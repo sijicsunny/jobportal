@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+
+<p><p>
+<div class="col"></div>
+    <div class="col ">
+
+        <div 
+        class="card text-center border-warning"
+        style="width: 800px; height: auto"
+        >
+        <div class="card-body ">
+            
+            <h5 class="card-title">{{jobpost.post_name}}</h5>
+            
+            <p class="card-text">Resume: {{profile.resume}}</p>
+            <p class="card-text">Skill: {{profile.skills}}</p>
+            <p class="card-text">Experience: {{profile.experience}}</p>
+            <a
+                  href="{% url 'core:jobpost_update' jobpost.id %}"
+                  class="btn btn-primary"
+                  >Edit</a>
+            <a
+                  href="{% url 'core:jobpost_update' jobpost.id %}"
+                  class="btn btn-primary"
+                  >Submit</a>
+
+                </div>
+            </a>
+          </div>
+        </div>
+        
+        
+        {% endblock %}
