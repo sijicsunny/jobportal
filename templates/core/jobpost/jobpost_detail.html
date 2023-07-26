@@ -1,4 +1,5 @@
-{% extends 'base_e.html' %} {% block content %}
+{% extends 'base_e.html' %} 
+{% block content %}
 <div class="container-lg d-flex flex-column gap-3 py-3">
   <div class="row">
     <div class="col">
@@ -39,28 +40,29 @@
             <td>Experience</td>
             <td>{{jobpost.experience}}</td>
           </tr>
-          <tr>
+          <tr></tr>
           <tr>
             <td>No of Vacancy</td>
             <td>{{jobpost.no_of_vacancy}}</td>
           </tr>
-              
+
           <tr>
             <td>Location</td>
             <td>{{jobpost.location}}</td>
           </tr>
           <tr>
-            <td>Salary</td>>
+            <td>Salary</td>
+            >
             <td>{{jobpost.salary}}</td>
           </tr>
           <tr>
             <td>Employment Type</td>
             <td>{{jobpost.employment_type}}</td>
-            </tr>
-            <tr>
-                <td>Last Date</td>
-                <td>{{jobpost.last_date}}</td>
-            </tr>
+          </tr>
+          <tr>
+            <td>Last Date</td>
+            <td>{{jobpost.last_date}}</td>
+          </tr>
           <tr>
             <td>Created On</td>
             <td>{{jobpost.created_on}}</td>
@@ -74,8 +76,14 @@
             <td>
               <div class="d-flex gap-3 flex-wrap">
                 <a
-                  href="{% url 'core:jobpost_update' jobpost.id %}"
+                  href="{% url 'core:jobpost_apply' jobpost.id %}"
                   class="btn btn-primary"
+                  >Apply</a
+                >
+                {% if user.is_superuser %}
+                <a
+                  href="{% url 'core:jobpost_update' jobpost.id %}"
+                  class="btn btn-info"
                   >Edit</a
                 >
                 <a
@@ -83,6 +91,8 @@
                   class="btn btn-danger"
                   >Delete</a
                 >
+                {% endif %}
+                
               </div>
             </td>
           </tr>

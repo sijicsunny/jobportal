@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
@@ -26,6 +27,7 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.name
 
+
 class JobPostModel(models.Model):
     class CatChoices(models.TextChoices):
         Accounting = "Accounting", "Accounting"
@@ -51,9 +53,11 @@ class JobPostModel(models.Model):
         Full_time = "full", "Full Time"
         Part_time = "part", "Part Time"
 
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL, blank=True, null=True
+    )
     post_name = models.CharField(max_length=64)
-    #company_name = models.TextField(max_length=64)
+    company_name = models.CharField(max_length=64)
     qualification = models.CharField(
         max_length=64, choices=QualificationChoices.choices
     )
@@ -69,33 +73,17 @@ class JobPostModel(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
-   # parents = models.ForeignKey("self", on_delete=models.CASCADE, blank=True, null=True)
-
-
     def __str__(self) -> str:
         return self.post_name
 
+
 #
 class AppliedModel(models.Model):
-    #name = models.CharField(max_length=64)
-   # company = models.CharField(max_length=200, default="")
-    fk = models.ForeignKey(JobPostModel, on_delete=models.CASCADE)
-    def post_name(self):
-        return self.fk.post_name
-    #post_name = models.ForeignKey(JobPostModel, on_delete=models.SET_NULL, blank=True, null=True)
-    resume = models.FileField(
-        upload_to="core/applied/resumes/", blank=True, null=True)
+    jobpost = models.ForeignKey(JobPostModel, on_delete=models.CASCADE, blank=True, null=True)
+    resume = models.FileField(upload_to="core/applied/resumes/", blank=True, null=True)
     date = models.DateTimeField(auto_now_add=True)
-    
- 
-    def __str__ (self):
-        return str(self.name)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-#class Applied(models.Model):
-  #  resume = models.FileField(
-  #      upload_to="core/applied/resumes/", blank=True, null=True
-   # )
-    
-    #experience = models.DecimalField(decimal_places=2, max_digits=2)
-   #skills = models.TextField(max_length=150, blank=True, null=True)
-    
+    def __str__(self):
+        return str(self.jobpost)
+

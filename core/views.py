@@ -1,11 +1,17 @@
 from typing import Any, Dict
-from django.db.models.query import QuerySet
-from django.shortcuts import render, redirect
-from django.views import generic as views
+
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models.query import QuerySet
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.views import generic as views
+
 from core import forms, models
-#from accounts import forms, models
+
+# from accounts import forms, models
 category = [
     {
         "name": "Marketing",
@@ -133,30 +139,41 @@ class DetailView(views.DetailView):
     model = models.JobPostModel
     context_object_name = "jobpost"
 
-class job_applyView(views.CreateView):
+
+class JobApplyView(LoginRequiredMixin, views.CreateView):
     template_name = "applied.html"
     model = models.AppliedModel
     form_class = forms.AppliedForm
     context_object_name = "jobpost"
 
- 
-    
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        jobpost_id = self.kwargs.get("pk")
+        self.jobpost = models.JobPostModel.objects.get(id=jobpost_id)
+        context["jobpost"] = self.jobpost
+        return context
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        jobpost_id = self.kwargs.get("pk")
+        self.jobpost = models.JobPostModel.objects.get(id=jobpost_id)
+        appliedjob = models.AppliedModel.objects.filter(jobpost__id=jobpost_id)
+        if not appliedjob.exists():
+            form.instance.user = self.request.user
+            form.instance.jobpost = self.jobpost
+            return super().form_valid(form)
+        return redirect(self.get_success_url())
+
+    def get_success_url(self) -> str:
+        jobpost_id = self.kwargs.get("pk")
+        appliedjob = models.AppliedModel.objects.filter(jobpost__id=jobpost_id).first()
+        return reverse_lazy("core:applied_job_detail", kwargs={"pk": appliedjob.id})
 
 
+class AppliedJobDetailView(LoginRequiredMixin, views.DetailView):
+    template_name = "preview.html"
+    model = models.AppliedModel
+    context_object_name = "appliedjob"
 
-
-#class PreView(views.DetailView):
-  #  template_name = "preview.html"
-  #  model = models.ProfileModel
-  #  context_object_name = "profile"
-
-
-
-
-
-
-
-   
 
 # class Register(views.CreateView):
 #       template_name = "core/register.html"

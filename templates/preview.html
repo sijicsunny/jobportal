@@ -1,33 +1,53 @@
 {% extends 'base.html' %} {% block content %}
 
-<p><p>
-<div class="col"></div>
-    <div class="col ">
-
-        <div 
-        class="card text-center border-warning"
-        style="width: 800px; height: auto"
-        >
-        <div class="card-body ">
-            
-            <h5 class="card-title">{{jobpost.post_name}}</h5>
-            
-            <p class="card-text">Resume: {{profile.resume}}</p>
-            <p class="card-text">Skill: {{profile.skills}}</p>
-            <p class="card-text">Experience: {{profile.experience}}</p>
-            <a
-                  href="{% url 'core:jobpost_update' jobpost.id %}"
-                  class="btn btn-primary"
-                  >Edit</a>
-            <a
-                  href="{% url 'core:jobpost_update' jobpost.id %}"
-                  class="btn btn-primary"
-                  >Submit</a>
-
-                </div>
-            </a>
+<div class="container py-3">
+  <div class="row mb-3">
+    <div class="col">
+      <h1 class="pb-2 border-bottom mb-3">Applied Job</h1>
+      <div class="card rounded-0">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th>Post Name:</th>
+                  <td>{{appliedjob.jobpost.post_name}}</td>
+                </tr>
+                <tr>
+                  <th>Company Name:</th>
+                  <td>{{appliedjob.jobpost.company_name}}</td>
+                </tr>
+                <tr>
+                  <th>Last Date:</th>
+                  <td>{{appliedjob.jobpost.last_date}}</td>
+                </tr>
+                <tr>
+                  <th>Applied Date:</th>
+                  <td>{{appliedjob.date|date}}</td>
+                </tr>
+                <tr>
+                  <th>Resume</th>
+                  <td>
+                    {% if appliedjob.resume %}
+                    <a
+                      href=""
+                      download="{{appliedjob.resume.url}}"
+                      class="link-primary"
+                      >Download</a
+                    >
+                    {% else %} No resume found!! {% endif %}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <a href="{% url 'core:jobpost_apply' appliedjob.jobpost.id  %}" class="btn btn-primary">Re-Apply</a>            
           </div>
         </div>
-        
-        
-        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

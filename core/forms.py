@@ -16,4 +16,4 @@ class JobPostForm(forms.ModelForm):
 class AppliedForm(forms.ModelForm):
     class Meta:
         model = models.AppliedModel
-        fields =["post_name","resume"]
+        fields =["resume"]

@@ -21,18 +21,24 @@
           <tr>
             <td class="text-center">{{forloop.counter}}</td>
             <td>{{jobpost}}</td>
-            
+
             <td>{{jobpost.updated_on}}</td>
             <td>
               <div class="d-flex gap-3 flex-wrap">
                 <a
-                  href="{% url 'core:jobpost_detail' jobpost.id %}"
+                  href="{% url 'core:jobpost_apply' jobpost.id %}"
                   class="btn btn-primary"
-                  >Detail</a
+                  >Apply</a
                 >
                 <a
-                  href="{% url 'core:jobpost_update' jobpost.id %}"
+                  href="{% url 'core:jobpost_detail' jobpost.id %}"
                   class="btn btn-secondary"
+                  >Detail</a
+                >
+                {% if user.is_superuser %}
+                <a
+                  href="{% url 'core:jobpost_update' jobpost.id %}"
+                  class="btn btn-info"
                   >Edit</a
                 >
                 <a
@@ -40,6 +46,7 @@
                   class="btn btn-danger"
                   >Delete</a
                 >
+                {% endif %}
               </div>
             </td>
           </tr>
