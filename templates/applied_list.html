@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container-lg d-flex flex-column gap-3 py-3">
+  <div class="row">
+    <div class="col">
+      <h1>List of Job Posted</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table table-bordered align-middle shadow-sm">
+        <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th>Post Name</th>
+            <th>Applied Date</th>
+            <th>Resume</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in jobposts %}
+          <tr>
+            <td class="text-center">{{forloop.counter}}</td>
+            <td>{{applied.post_name}}</td>
+
+            <td>{{applied.date|date}}</td>
+            <td>
+                {% if jobpost.resume %}
+                <a
+                  href=""
+                  download="{{appliedjob.resume.url}}"
+                  class="link-primary"
+                  >Download</a
+                >
+                {% else %} No resume found!! {% endif %}
+
+
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5">Nobody applied Yet!</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

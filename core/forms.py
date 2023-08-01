@@ -11,7 +11,7 @@ from core import models
 class JobPostForm(forms.ModelForm):
     class Meta:
         model = models.JobPostModel
-        fields =["category","post_name","qualification","skills","experience","no_of_vacancy","location","salary","employment_type","last_date"]
+        fields =["category","post_name","company_name","qualification","skills","experience","no_of_vacancy","location","salary","employment_type","last_date"]
         
 class AppliedForm(forms.ModelForm):
     class Meta:

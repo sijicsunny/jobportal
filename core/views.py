@@ -174,6 +174,13 @@ class AppliedJobDetailView(LoginRequiredMixin, views.DetailView):
     model = models.AppliedModel
     context_object_name = "appliedjob"
 
+class AppliedListView(views.ListView):
+    template_name = "applied_list.html"
+    model = models.AppliedModel
+    context_object_name = "appliedjob"
+    
+    
+
 
 # class Register(views.CreateView):
 #       template_name = "core/register.html"

@@ -21,17 +21,152 @@
           >Home</a
         >
         {% if user.is_authenticated %} 
-        {% if user.profilemodel.id %}
-        <a
-          class="nav-link"
-          href="{% url 'accounts:profile_detail' user.profilemodel.id %}"
-          >{{user}}</a
-        >
-        {% else %}
-        <a class="nav-link" href="{% url 'accounts:profile_create' %}"
-          >{{user}}</a
-        >
+        {% if user.is_superuser %}
+        
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{user}}
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:create' %}"
+                >Add employer</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:employer_list' %}">Show employer</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        {% elif user.employermodel %}
+
+        <li class="nav-item dropdown">
+            
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Profile</a>
+            <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:profile' %}"
+                >For Employer</a >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:empprofile_detail' user.employermodel.id %}"
+                >My Profile</a >
+            </li>
+          <li>
+              <a class="dropdown-item" href="{% url 'accounts:profile_create' %}"
+                >For user</a >
+            </li>
+            </ul>
+        </li>
+
+
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{user}}
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="{% url 'core:jobpost' %}"
+                >Add new Job Post</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'core:jobpost_list' %}">Show Job Posts</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'core:applied_list' %}">View Applicant</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:password_change' %}">Change Password</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        {% elif user.jobseekermodel %}
+
+        <li class="nav-item dropdown">
+            
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Profile</a>
+            <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:profile' %}"
+                >For Employer</a >
+            </li>
+          <li>
+              <a class="dropdown-item" href="{% url 'accounts:profile_create' %}"
+                >For user</a >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:profile_detail' user.jobseekermodel.id %}"
+                >My Profile</a >
+            </li>
+            </ul>
+        </li>
+
+        
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{user}}
+          </a>
+          <ul class="dropdown-menu">
+            
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'core:applied_list' %}
+
+              ">View Applied</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'accounts:password_change' %}">Change Password</a
+              >
+            </li>
+          </ul>
+        </li>
+        <form action="{% url 'core:search' %}" class="d-flex" method="get" role="search">
+          <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
         {% endif %}
+
         <a
           class="nav-link active"
           aria-current="page"

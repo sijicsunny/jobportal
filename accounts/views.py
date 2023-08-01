@@ -1,5 +1,5 @@
 from typing import Any, Optional
-
+from django.db.models.query import QuerySet
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import models
@@ -45,6 +45,7 @@ class EmpprofileCreateView(LoginRequiredMixin, views.CreateView):
     model = models.EmployerModel
     form_class = forms.EmprProfileForm
     login_url = reverse_lazy("accounts:login")
+    context_object_name = "employer"
     extra_context = {
         "project_name": "Dream_Catcher",
         "page_name": "Employer profile create",
@@ -54,6 +55,16 @@ class EmpprofileCreateView(LoginRequiredMixin, views.CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+class EmprofileDetailView(LoginRequiredMixin, views.DetailView):
+    template_name = "accounts/profile/empprofile_detail.html"
+    model = models.EmployerModel
+    queryset = models.EmployerModel.objects.filter(company_name="user")
+    context_object_name = "emplyer"
+class EmprofileUpdateView(LoginRequiredMixin, views.UpdateView):
+    template_name = "accounts/profile/empprofile_update.html"
+    model = models.EmployerModel
+    context_object_name = "employer"
+    form_class = forms.EmprProfileForm
 
 # Authentication
 class LoginView(auth_views.LoginView):
@@ -151,6 +162,7 @@ class DashboardView(LoginRequiredMixin, views.TemplateView):
             # here you can add custom data the above action is for an example
         elif user.is_superuser:
             actions = [""]
+            
         elif hasattr(user, "employermodel"):
             actions = ["Post Jobs"]
         context.update({"actions": actions})

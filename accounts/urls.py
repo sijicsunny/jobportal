@@ -21,9 +21,11 @@ urlpatterns = [
     path("profile/<int:pk>/detail/", views.ProfileDetailView.as_view(), name="profile_detail"),
     path("profile/<int:pk>/update/", views.ProfileUpdateView.as_view(), name="profile_update"),
     path("eprofile/", views.EmpprofileCreateView.as_view(), name="profile"),
+    path("profile/<int:pk>/detail/", views.EmprofileDetailView.as_view(), name="empprofile_detail"),
+    path("profile/<int:pk>/update/", views.EmprofileUpdateView.as_view(), name="empprofile_update"),
     path("add/", views.AddEmployerView.as_view(), name="create"),
 
-    path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
+    #path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
 
     #employers
     path("employers/list/", views.EmployerListView.as_view(), name="employer_list"),
