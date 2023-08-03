@@ -17,14 +17,14 @@
           </tr>
         </thead>
         <tbody>
-          {% for x in jobposts %}
+          {% for appliedjob in appliedjobs %}
           <tr>
             <td class="text-center">{{forloop.counter}}</td>
-            <td>{{applied.post_name}}</td>
+            <td>{{appliedjob.jobpost.post_name}}</td>
 
-            <td>{{applied.date|date}}</td>
+            <td>{{appliedjob.date|date}}</td>
             <td>
-                {% if jobpost.resume %}
+                {% if appliedjob.resume %}
                 <a
                   href=""
                   download="{{appliedjob.resume.url}}"

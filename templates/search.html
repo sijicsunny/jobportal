@@ -1,33 +1,35 @@
-{% extends 'base.html' %} 
-{% block title %}Search{% endblock%} 
+{% extends 'base.html' %} {% load humanize %} 
+{% block title %}Search{% endblock%}
 {% block content %}
 
-<div class="container">
+<div class="container py-lg-5 py-2 vh-100">
   <div class="row">
     <div class="col-md-12">
       <h3>Search results for {{request.GET.keyword}}</h3>
       <hr />
       {% for result in results %}
-      <div class="row">
-        
+      <div class="row row-cols-md-5 row-cols-1 g-3">
         <div class="col-md-4">
-            <div class="card card-body">
-                <a href="{% url 'core:more' result.id %}">{{result}}</a>
-                
-            </div>
+          <div class="card card-body shadow-sm">
+            <h5 class="mb-3">
+              <a href="{% url 'core:more' result.id %}">{{result.post_name}}</a>
+            </h5>
+            <p>Salary: INR {{result.salary|intcomma}}</p>
+            <p>Last date: {{result.last_date}}</p>
+            <p class="text-muted fst-italic">
+              <small>Added on: {{result.created_on|naturaltime}}</small>
+            </p>
+          </div>
         </div>
       </div>
 
       {% empty%}
-    <div class="col">
-      <div class="card_body">
-        <h5 class="card-title">No result found!</h5>
+      <div class="col">
+        <div class="card_body">
+          <h5 class="card-title">No result found!</h5>
+        </div>
       </div>
-    </div>
-    {% endfor %}
-
-
-      
+      {% endfor %}
     </div>
   </div>
 </div>

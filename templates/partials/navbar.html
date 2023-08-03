@@ -136,7 +136,7 @@
         </li>
 
         
-        <li class="nav-item dropdown">
+        < class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -147,13 +147,13 @@
             {{user}}
           </a>
           <ul class="dropdown-menu">
-            
-            </li>
+            {% if appliedjob.id %}
             <li>
-              <a class="dropdown-item" href="{% url 'core:applied_list' %}
-
-              ">View Applied</a
-              >
+              <a class="dropdown-item" href="{% url 'core:applied_job_detail' appliedjob.id %}">Applied Detail</a>
+            </li>
+            {% endif %}
+            <li>
+              <a class="dropdown-item" href="{% url 'core:applied_list' %}">View Applied</a>
             </li>
             <li>
               <a class="dropdown-item" href="{% url 'accounts:password_change' %}">Change Password</a
