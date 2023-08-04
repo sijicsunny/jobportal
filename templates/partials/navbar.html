@@ -49,7 +49,6 @@
         {% elif user.employermodel %}
 
         <li class="nav-item dropdown">
-            
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -59,22 +58,20 @@
           >
             Profile</a>
             <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item" href="{% url 'accounts:profile' %}"
-                >For Employer</a >
-            </li>
-            <li>
-              <a class="dropdown-item" href="{% url 'accounts:empprofile_detail' user.employermodel.id %}"
-                >My Profile</a >
-            </li>
-          <li>
-              <a class="dropdown-item" href="{% url 'accounts:profile_create' %}"
-                >For user</a >
-            </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'accounts:profile' %}"
+                  >For Employer</a >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'accounts:empprofile_detail' user.employermodel.id %}"
+                  >My Profile</a >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'accounts:profile_create' %}"
+                  >For user</a >
+              </li>
             </ul>
         </li>
-
-
 
         <li class="nav-item dropdown">
           <a
@@ -129,14 +126,16 @@
                 >For user</a >
             </li>
             <li>
+              {% if user.jobseekermodel.profile %}
               <a class="dropdown-item" href="{% url 'accounts:profile_detail' user.jobseekermodel.id %}"
                 >My Profile</a >
+                {% endif %}
             </li>
             </ul>
         </li>
 
         
-        < class="nav-item dropdown">
+        <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             href="#"

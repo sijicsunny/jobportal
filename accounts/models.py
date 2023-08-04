@@ -70,7 +70,7 @@ class ProfileModel(models.Model):
 class EmployerModel(models.Model):
     company_name = models.CharField(max_length=64)
     address = models.TextField(max_length=150)
-    contact_no = models.BigIntegerField()
+    contact_no = models.CharField(max_length=15, blank=True, null=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     status = models.BooleanField(default=True)
 
