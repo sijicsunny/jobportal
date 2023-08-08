@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-info">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Dream Catcher</a>
+    <a class="navbar-brand" href="#">JOB PORTAL</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -20,6 +20,30 @@
           href="{% url 'core:home' %}"
           >Home</a
         >
+        {% if user.is_authenticated and not user.is_superuser %} 
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Profile</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="{% url 'accounts:profile' %}"
+                  >For Employer</a >
+              </li>
+              
+              <li>
+                <a class="dropdown-item" href="{% url 'accounts:profile_create' %}"
+                  >For user</a >
+              </li>
+            </ul>
+        </li>
+        {% endif %}
+
         {% if user.is_authenticated %} 
         {% if user.is_superuser %}
         
@@ -43,35 +67,22 @@
               <a class="dropdown-item" href="{% url 'accounts:employer_list' %}">Show employer</a
               >
             </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'core:jobpost_list' %}">Show Job Posts</a
+              >
+            </li>
           </ul>
         </li>
 
         {% elif user.employermodel %}
 
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Profile</a>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="{% url 'accounts:profile' %}"
-                  >For Employer</a >
-              </li>
-              <li>
-                <a class="dropdown-item" href="{% url 'accounts:empprofile_detail' user.employermodel.id %}"
-                  >My Profile</a >
-              </li>
-              <li>
-                <a class="dropdown-item" href="{% url 'accounts:profile_create' %}"
-                  >For user</a >
-              </li>
-            </ul>
-        </li>
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="{% url 'accounts:empprofile_detail' user.employermodel.id %}"
+          >My Profile</a>
+
+        
 
         <li class="nav-item dropdown">
           <a
@@ -105,35 +116,15 @@
         </li>
 
         {% elif user.jobseekermodel %}
+        {% if user.jobseekermodel.profile %}
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="{% url 'accounts:profile_detail' user.jobseekermodel.id %}"
+          >My Profile</a>
+          {% endif %}
 
-        <li class="nav-item dropdown">
-            
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Profile</a>
-            <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item" href="{% url 'accounts:profile' %}"
-                >For Employer</a >
-            </li>
-          <li>
-              <a class="dropdown-item" href="{% url 'accounts:profile_create' %}"
-                >For user</a >
-            </li>
-            <li>
-              {% if user.jobseekermodel.profile %}
-              <a class="dropdown-item" href="{% url 'accounts:profile_detail' user.jobseekermodel.id %}"
-                >My Profile</a >
-                {% endif %}
-            </li>
-            </ul>
-        </li>
-
+        
         
         <li class="nav-item dropdown">
           <a

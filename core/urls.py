@@ -22,6 +22,7 @@ urlpatterns = [
     # Applied job
     path("applied-job/<int:pk>/", views.AppliedJobDetailView.as_view(), name="applied_job_detail"),
     path("applied/list/", views.AppliedListView.as_view(), name="applied_list"),
+    path("myapplied/list/", views.MyAppliedListView.as_view(), name="myapplied_list"),
 
    
    # path("login/", views.LoginView.as_view(), name="login"),

@@ -17,11 +17,12 @@ urlpatterns = [
     path("reset/<uidb64>/<token>/",views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
     path("reset/done/",views.PasswordResetComleteView.as_view(), name="password_reset_complete"),
 
+ 
     path("profile/create/", views.ProfileCreateView.as_view(), name="profile_create"),
     path("profile/<int:pk>/detail/", views.ProfileDetailView.as_view(), name="profile_detail"),
     path("profile/<int:pk>/update/", views.ProfileUpdateView.as_view(), name="profile_update"),
     path("eprofile/", views.EmpprofileCreateView.as_view(), name="profile"),
-    path("profile/<int:pk>/detail/", views.EmprofileDetailView.as_view(), name="empprofile_detail"),
+    path("empprofile/<int:pk>/detail/", views.EmprofileDetailView.as_view(), name="empprofile_detail"),
     path("profile/<int:pk>/update/", views.EmprofileUpdateView.as_view(), name="empprofile_update"),
     path("add/", views.AddEmployerView.as_view(), name="create"),
 

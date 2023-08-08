@@ -18,6 +18,7 @@
         </thead>
         <tbody>
           {% for appliedjob in appliedjobs %}
+          {% if user.is_authenticated == appliedmodel.User %}
           <tr>
             <td class="text-center">{{forloop.counter}}</td>
             <td>{{appliedjob.jobpost.post_name}}</td>
@@ -36,9 +37,10 @@
 
             </td>
           </tr>
+          {% endif %}
           {% empty %}
           <tr>
-            <td colspan="5">Nobody applied Yet!</td>
+            <td colspan="5">Not applied Yet!</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -46,14 +48,5 @@
     </div>
   </div>
 </div>
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 {% endblock %}

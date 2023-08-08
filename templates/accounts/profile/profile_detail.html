@@ -4,11 +4,7 @@
     <div class="col">
       <h1 class="d-flex align-item-center gap-3">
         Profile | Detail
-        <a
-          href="{% url 'accounts:profile_update' profile.id %}"
-          class="btn btn-sm btn-primary"
-          >Edit</a
-        >
+        
       </h1>
     </div>
   </div>
@@ -39,6 +35,13 @@
       </div>
     </div>
   </div>
+  <div>
+  <a
+          href="{% url 'accounts:profile_update' profile.id %}"
+          class="btn btn-sm btn-primary"
+          >Edit</a
+        ></div>
 </div>
-
+<br>
+<br>
 {% endblock %}

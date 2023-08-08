@@ -178,6 +178,11 @@ class AppliedListView(views.ListView):
     template_name = "applied_list.html"
     model = models.AppliedModel
     context_object_name = "appliedjobs"
+
+class MyAppliedListView(views.ListView):
+    template_name = "myapplied_list.html"
+    model = models.AppliedModel
+    context_object_name = "appliedjobs"
     
     
 
