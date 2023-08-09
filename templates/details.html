@@ -1,38 +1,32 @@
 {% extends 'base.html' %} {% block content %}
+<div class="container py-lg-5 py-3">
+  <div class="row">
+    <div class="col">
+      <div class="card text-center border-warning">
+        <div class="card-body">
+          <h5 class="card-title">{{jobpost.post_name}}</h5>
 
-<p><p>
-<div class="col"></div>
-    <div class="col ">
+          <p class="card-text">Post Name: {{jobpost.post_name}}</p>
+          <p class="card-text">
+            Preferred Qualification: {{jobpost.qualification}}
+          </p>
+          <p class="card-text">Preferred Skill: {{jobpost.skills}}</p>
+          <p class="card-text">Experience: {{jobpost.experience}}</p>
+          <p class="card-text">No of Vacancy: {{jobpost.no_of_vacancy}}</p>
+          <p class="card-text">Location: {{jobpost.location}}</p>
+          <p class="card-text">Salary: {{jobpost.salary}}</p>
+          <p class="card-text">Employment Type: {{jobpost.employment_type}}</p>
+          <p class="card-text">Last Date: {{jobpost.last_date}}</p>
 
-        <div 
-        class="card text-center border-warning"
-        style="width: 800px; height: auto"
-        >
-        <div class="card-body ">
-            
-            <h5 class="card-title">{{jobpost.post_name}}</h5>
-            
-            <p class="card-text">Post Name: {{jobpost.post_name}}</p>
-            <p class="card-text">Preferred Qualification: {{jobpost.qualification}}</p>
-            <p class="card-text">Preferred Skill: {{jobpost.skills}}</p>
-            <p class="card-text">Experience: {{jobpost.experience}}</p>
-            <p class="card-text">No of Vacancy: {{jobpost.no_of_vacancy}}</p>
-            <p class="card-text">Location: {{jobpost.location}}</p>
-            <p class="card-text">Salary: {{jobpost.salary}}</p>
-            <p class="card-text">Employment Type: {{jobpost.employment_type}}</p>
-            <p class="card-text">Last Date: {{jobpost.last_date}}</p>
-
-            
-            <a
-                  href="{% url 'core:jobpost_apply' jobpost.id %}"
-                  class="btn btn-primary"
-                  >Apply</a
-                >
-                
+          <a
+            href="{% url 'core:jobpost_apply' jobpost.id %}"
+            class="btn btn-primary"
+            >Apply</a
+          >
         </div>
-    </a>
+      </div>
+    </div>
   </div>
+
+  {% endblock %}
 </div>
-
-
-{% endblock %}

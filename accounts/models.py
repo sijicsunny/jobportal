@@ -1,6 +1,13 @@
+import datetime
+from typing import Any, Iterable, List
+
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models.manager import BaseManager
+from django.db.models import QuerySet
 from django.urls import reverse
+from django.core.exceptions import ValidationError
 
 
 class TimestampedModel(models.Model):
@@ -29,6 +36,10 @@ class QualificationModel(TimestampedModel):
 
 # user profile
 class ProfileModel(models.Model):
+    def current_year_validator(value):
+        if value > datetime.now().year:
+            raise ValidationError("Year cannot be in the future.")
+
     class GenderChoices(models.TextChoices):
         MALE = "M", "Male"
         FEMALE = "F", "Female"
@@ -44,9 +55,14 @@ class ProfileModel(models.Model):
         QualificationModel, on_delete=models.SET_NULL, blank=True, null=True
     )
     institution = models.CharField(max_length=64)
-    year_of_passing = models.IntegerField()
-    percentage = models.DecimalField(decimal_places=2, max_digits=3)
-    experience = models.DecimalField(decimal_places=2, max_digits=2)
+    year_of_passing = models.IntegerField(
+        validators=[
+            MinValueValidator(2010),  # Change the minimum value as needed
+            current_year_validator,  # Change the maximum value as needed
+        ]
+    )
+    percentage = models.DecimalField(decimal_places=2, max_digits=5)
+    experience = models.DecimalField(decimal_places=2, max_digits=5)
     skills = models.TextField(max_length=150, blank=True, null=True)
     resume = models.FileField(
         upload_to="accounts/profile/resumes/", blank=True, null=True
@@ -78,11 +94,18 @@ class EmployerModel(models.Model):
         return reverse("accounts:profile_detail", args=(self.pk,))
 
     def __str__(self) -> str:
-        return self.company_name
+        return self.company_name or "Not Defined"
+
+    @property
+    def jobposts(self) -> BaseManager[Any]:
+        posts = getattr(self.user, "jobposts", QuerySet())
+        return posts
 
 
 class JobSeekerModel(BaseUserModel):
-    profile = models.OneToOneField(ProfileModel, on_delete=models.SET_NULL, blank=True, null=True)
+    profile = models.OneToOneField(
+        ProfileModel, on_delete=models.SET_NULL, blank=True, null=True
+    )
 
     def __str__(self) -> str:
         return f"{self.user.username}"

@@ -1,9 +1,10 @@
 from typing import Any, Optional
+from django.contrib.auth.forms import AuthenticationForm
 from django.db.models.query import QuerySet
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import models
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -23,8 +24,18 @@ class ProfileCreateView(LoginRequiredMixin, views.CreateView):
     }
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        jobseeker: models.JobSeekerModel | False = getattr(
+            self.request.user, "jobseekermodel", False
+        )
+
+        if jobseeker:
+            profile_exists: models.ProfileModel = getattr(jobseeker, "profile", False)
+            if not profile_exists:
+                jobseeker.profile = self.object
+                jobseeker.save()
+
+        return response
 
 
 class ProfileDetailView(LoginRequiredMixin, views.DetailView):
@@ -43,7 +54,7 @@ class ProfileUpdateView(LoginRequiredMixin, views.UpdateView):
 class EmpprofileCreateView(LoginRequiredMixin, views.CreateView):
     template_name = "accounts/profile/empr_profile.html"
     model = models.EmployerModel
-    form_class = forms.EmprProfileForm
+    form_class = forms.EmployerProfileForm
     login_url = reverse_lazy("accounts:login")
     context_object_name = "employer"
     extra_context = {
@@ -55,16 +66,24 @@ class EmpprofileCreateView(LoginRequiredMixin, views.CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class EmprofileDetailView(LoginRequiredMixin, views.DetailView):
-    template_name = "accounts/profile/empprofile_detail.html"
-    model = models.EmployerModel
-    queryset = models.EmployerModel.objects.filter(company_name="user")
-    context_object_name = "emplyer"
-class EmprofileUpdateView(LoginRequiredMixin, views.UpdateView):
-    template_name = "accounts/profile/empprofile_update.html"
+
+class EmployerProfileDetailView(LoginRequiredMixin, views.DetailView):
+    template_name = "accounts/profile/employer_profile_detail.html"
     model = models.EmployerModel
     context_object_name = "employer"
-    form_class = forms.EmprProfileForm
+
+
+class EmployerProfileUpdateView(LoginRequiredMixin, views.UpdateView):
+    template_name = "accounts/profile/employer_profile_update.html"
+    model = models.EmployerModel
+    context_object_name = "employer"
+    form_class = forms.EmployerProfileForm
+
+    def get_success_url(self) -> str:
+        return reverse_lazy(
+            "accounts:employer_profile_detail", kwargs={"pk": self.object.id}
+        )
+
 
 # Authentication
 class LoginView(auth_views.LoginView):
@@ -74,6 +93,12 @@ class LoginView(auth_views.LoginView):
         "project_name": "Dream_Catcher",
         "page_name": "Login",
     }
+
+    def form_valid(self, form: AuthenticationForm) -> HttpResponse:
+        response = super().form_valid(form)
+        if hasattr(self.request.user, "jobseekermodel"):
+            return redirect(reverse_lazy("core:home"))
+        return response
 
 
 class LogoutView(auth_views.LogoutView):
@@ -162,7 +187,7 @@ class DashboardView(LoginRequiredMixin, views.TemplateView):
             # here you can add custom data the above action is for an example
         elif user.is_superuser:
             actions = [""]
-            
+
         elif hasattr(user, "employermodel"):
             actions = ["Post Jobs"]
         context.update({"actions": actions})

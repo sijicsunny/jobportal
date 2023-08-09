@@ -1,0 +1,43 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container-lg py-lg-5 py-3 min-vh-100">
+  <div class="row">
+    <div class="col">
+      <h1 class="d-flex align-item-center gap-3">Profile | Detail</h1>
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card card-body">
+        <div class="table-responsive">
+          <table class="table table-borderless table-stripped">
+            <tbody>
+              <tr>
+                <th>Company Name</th>
+                <td>{{employer}}</td>
+              </tr>
+              <tr>
+                <th>Address</th>
+                <td>{{employer.address}}</td>
+              </tr>
+              <tr>
+                <th>Contact No</th>
+                <td>{{employer.contact_no}}</td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <a
+                    href="{% url 'accounts:employer_profile_update' employer.id %}"
+                    class="btn btn-primary"
+                    >Edit</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

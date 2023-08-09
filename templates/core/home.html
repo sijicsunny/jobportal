@@ -1,51 +1,61 @@
 {% extends 'base.html' %} {% block content %}
-<br />
-<div class="container">
-  <div class="text-black text-center">
-    <div class="col"></div>
-    <h1>Find Your Dream Job</h1>
-  </div>
-  <br />
-  <div>
-    <form action="{% url 'core:search' %}" class="d-flex" method="get" role="search">
-      {% csrf_token %}
-      <input
-        class="form-control me-2"
-        type="search"
-        name="keyword"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
-</div>
-
-<br />
-
-<div class="container-lg d-flex flex-column gap-3 pb-3">
-  <div class="row">
+<div class="container-lg d-flex flex-column gap-3 py-lg-5 py-3 min-vh-100">
+  <div class="row text-black text-center mb-3">
     <div class="col">
-      <h1>Explore By Category</h1>
+      <h1>Find Your Dream Job</h1>
       <hr />
     </div>
   </div>
-  <div class="row row-cols-2">
+  <div class="row mb-3">
+    <div class="col">
+      <div class="card card-body shadow py-lg-5 py-3 overflow-hidden">
+        <form
+          action="{% url 'core:search' %}"
+          class="d-flex"
+          method="get"
+          role="search"
+        >
+          {% csrf_token %}
+          <div class="form-group w-100">
+            <label for="id_job_search" class="form-label">Job Title</label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                type="search"
+                name="keyword"
+                placeholder="Search jobs here..."
+                aria-label="Search"
+                id="id_job_search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h3>Explore By Category</h3>
+      <hr />
+    </div>
+  </div>
+  <div class="row row-cols-lg-5 row-cols-1 g-3">
     {% for category in categories %}
     <div class="col">
-        <a href="{% url 'core:jobpost_list_by_category' category.id %}" class="link">
-            <div
-            class="card text-center border-warning"
-            style="width: 200px; height: auto"
-            >
-            <div class="card-body">
-                
-                
-                <h5 class="card-title">{{category.name}}</h5>
-                <p class="card-text">Vacancies: {{category.no_of_vacancy}}</p>
-            </div>
-        </a>
-      </div>
+      <a
+        href="{% url 'core:jobpost_list_by_category' category.id %}"
+        class="link"
+      >
+        <div class="card text-center border-warning">
+          <div class="card-body">
+            <h4 class="card-title">{{category.name}}</h4>
+            <p class="card-text">Vacancies: {{category.no_of_vacancy}}</p>
+          </div>
+        </div>
+      </a>
     </div>
     {% empty%}
     <div class="col">
@@ -56,11 +66,4 @@
     {% endfor %}
   </div>
 </div>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 {% endblock content %}

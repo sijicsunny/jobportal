@@ -19,17 +19,17 @@ urlpatterns = [
 
  
     path("profile/create/", views.ProfileCreateView.as_view(), name="profile_create"),
-    path("profile/<int:pk>/detail/", views.ProfileDetailView.as_view(), name="profile_detail"),
+    path("profile/<int:pk>/", views.ProfileDetailView.as_view(), name="profile_detail"),
     path("profile/<int:pk>/update/", views.ProfileUpdateView.as_view(), name="profile_update"),
-    path("eprofile/", views.EmpprofileCreateView.as_view(), name="profile"),
-    path("empprofile/<int:pk>/detail/", views.EmprofileDetailView.as_view(), name="empprofile_detail"),
-    path("profile/<int:pk>/update/", views.EmprofileUpdateView.as_view(), name="empprofile_update"),
+    path("employer/profile/create/", views.EmpprofileCreateView.as_view(), name="profile"),
+    path("employer/profile/<int:pk>/", views.EmployerProfileDetailView.as_view(), name="employer_profile_detail"),
+    path("employer/profile/<int:pk>/update/", views.EmployerProfileUpdateView.as_view(), name="employer_profile_update"),
     path("add/", views.AddEmployerView.as_view(), name="create"),
 
     #path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
 
     #employers
-    path("employers/list/", views.EmployerListView.as_view(), name="employer_list"),
+    path("employers/", views.EmployerListView.as_view(), name="employer_list"),
     path("employers/<int:pk>/detail/", views.EmployerDetailView.as_view(), name="employer_detail"),
     path("employers/<int:pk>/update/", views.EmployerUpdateView.as_view(), name="employer_update"),
     path("employers/<int:pk>/delete/", views.EmployerDeleteView.as_view(), name="employer_delete"),

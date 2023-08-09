@@ -11,7 +11,7 @@ class ProfileForm(forms.ModelForm):
         exclude = ("user", "status")
 
 
-class EmprProfileForm(forms.ModelForm):
+class EmployerProfileForm(forms.ModelForm):
     class Meta:
         model = models.EmployerModel
         exclude = ("user", "status")
@@ -19,6 +19,7 @@ class EmprProfileForm(forms.ModelForm):
 
 class UserForm(UserCreationForm):
     is_employer = forms.BooleanField(label="Are you an Emloyer?", required=False)
+
     class Meta:
         model = get_user_model()
         fields = ["email", "username", "password1", "password2"]

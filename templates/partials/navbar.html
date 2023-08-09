@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-info">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">JOB PORTAL</a>
+    <a class="navbar-brand" href="{% url 'core:home' %}">JOB PORTAL</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -13,40 +13,18 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
+      <div class="navbar-nav w-100">
         <a
           class="nav-link active"
           aria-current="page"
           href="{% url 'core:home' %}"
           >Home</a
         >
-        {% if user.is_authenticated and not user.is_superuser %} 
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Profile</a>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="{% url 'accounts:profile' %}"
-                  >For Employer</a >
-              </li>
-              
-              <li>
-                <a class="dropdown-item" href="{% url 'accounts:profile_create' %}"
-                  >For user</a >
-              </li>
-            </ul>
-        </li>
-        {% endif %}
-
-        {% if user.is_authenticated %} 
+        <!--  -->
+        {% if user.is_authenticated %}
+        <!--  -->
         {% if user.is_superuser %}
-        
+
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -64,26 +42,19 @@
               >
             </li>
             <li>
-              <a class="dropdown-item" href="{% url 'accounts:employer_list' %}">Show employer</a
+              <a class="dropdown-item" href="{% url 'accounts:employer_list' %}"
+                >Show employer</a
               >
             </li>
             <li>
-              <a class="dropdown-item" href="{% url 'core:jobpost_list' %}">Show Job Posts</a
+              <a class="dropdown-item" href="{% url 'core:jobpost_list' %}"
+                >Show Job Posts</a
               >
             </li>
           </ul>
         </li>
 
         {% elif user.employermodel %}
-
-        <a
-          class="nav-link active"
-          aria-current="page"
-          href="{% url 'accounts:empprofile_detail' user.employermodel.id %}"
-          >My Profile</a>
-
-        
-
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -96,36 +67,38 @@
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href="{% url 'core:jobpost' %}"
+              <a
+                class="dropdown-item"
+                href="{% url 'accounts:employer_profile_detail' user.employermodel.id %}"
+                >My Profile</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'core:jobpost_create' %}"
                 >Add new Job Post</a
               >
             </li>
             <li>
-              <a class="dropdown-item" href="{% url 'core:jobpost_list' %}">Show Job Posts</a
+              <a class="dropdown-item" href="{% url 'core:jobpost_list' %}"
+                >Show Job Posts</a
               >
             </li>
             <li>
-              <a class="dropdown-item" href="{% url 'core:applied_list' %}">View Applicant</a
+              <a class="dropdown-item" href="{% url 'core:applied_job_list' %}"
+                >View Applications</a
               >
             </li>
             <li>
-              <a class="dropdown-item" href="{% url 'accounts:password_change' %}">Change Password</a
+              <a
+                class="dropdown-item"
+                href="{% url 'accounts:password_change' %}"
+                >Change Password</a
               >
             </li>
           </ul>
         </li>
 
         {% elif user.jobseekermodel %}
-        {% if user.jobseekermodel.profile %}
-        <a
-          class="nav-link active"
-          aria-current="page"
-          href="{% url 'accounts:profile_detail' user.jobseekermodel.id %}"
-          >My Profile</a>
-          {% endif %}
-
-        
-        
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -137,50 +110,94 @@
             {{user}}
           </a>
           <ul class="dropdown-menu">
-            {% if appliedjob.id %}
+            {% if user.jobseekermodel.profile %}
             <li>
-              <a class="dropdown-item" href="{% url 'core:applied_job_detail' appliedjob.id %}">Applied Detail</a>
+              <a
+                class="dropdown-item"
+                aria-current="page"
+                href="{% url 'accounts:profile_detail' user.jobseekermodel.id %}"
+                >View my profile</a
+              >
+            </li>
+            {% else %}
+            <li>
+              <a
+                class="dropdown-item"
+                aria-current="page"
+                href="{% url 'accounts:profile_create' %}"
+                >Create new profile</a
+              >
             </li>
             {% endif %}
             <li>
-              <a class="dropdown-item" href="{% url 'core:applied_list' %}">View Applied</a>
+              <a class="dropdown-item" href="{% url 'core:applied_job_list' %}"
+                >View my applied jobs</a
+              >
             </li>
             <li>
-              <a class="dropdown-item" href="{% url 'accounts:password_change' %}">Change Password</a
+              <a class="dropdown-item" href="{% url 'core:jobpost_list' %}"
+                >Show all job posts</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="{% url 'accounts:password_change' %}"
+                >Change password</a
               >
             </li>
           </ul>
         </li>
-        <form action="{% url 'core:search' %}" class="d-flex" method="get" role="search">
-          <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-        {% endif %}
 
-        <a
-          class="nav-link active"
-          aria-current="page"
-          href="{% url 'accounts:logout' %}"
-          >Logout</a
-        >
+        {% endif %}
+        <!--  -->
+
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="{% url 'accounts:logout' %}"
+            >Logout</a
+          >
+        </li>
+
         {% else %}
-        <a
-          class="nav-link active"
-          aria-current="page"
-          href="{% url 'accounts:login' %}"
-          >Login</a
-        >
-        <a
-          class="nav-link active"
-          aria-current="page"
-          href="{% url 'accounts:signup' %}"
-          >Register</a
-        >
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="{% url 'accounts:login' %}"
+            >Login</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="{% url 'accounts:signup' %}"
+            >Register</a
+          >
+        </li>
         {% endif %}
-
-        <a class="nav-link" href="#"></a>
-        <a class="nav-link" href="#"></a>
-        <a class="nav-link disabled"></a>
+        <li class="nav-item ms-auto me-0">
+          <form
+            action="{% url 'core:search' %}"
+            class="d-flex"
+            method="get"
+            role="search"
+          >
+            <div class="input-group">
+              <input
+                class="form-control"
+                type="search"
+                name="keyword"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-dark" type="submit">Search</button>
+            </div>
+          </form>
+        </li>
       </div>
     </div>
   </div>

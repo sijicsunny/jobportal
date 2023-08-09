@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
@@ -65,12 +65,18 @@ class SearchView(views.TemplateView):
         return context
 
 
-class AdminHomeView(views.TemplateView):
+class AdminHomeView(LoginRequiredMixin, PermissionRequiredMixin, views.TemplateView):
     template_name = "core/admin_home.html"
     extra_context = {
         "project_name": "Dream_Catcher",
         "page_name": "Admin Home",
     }
+    permission_required = []
+    permission_denied_message = "You are not allowed to view this page"
+
+    def has_permission(self) -> bool:
+        permitted = self.request.user.is_superuser and super().has_permission()
+        return permitted
 
 
 class EmployerHomeView(views.TemplateView):
@@ -89,12 +95,16 @@ class UserHomeView(views.TemplateView):
     }
 
 
-class JobPostView(views.CreateView):
-    template_name = "core/jobpost/jobpost.html"
+class JobPostCreateView(LoginRequiredMixin, views.CreateView):
+    template_name = "core/jobpost/jobpost_create.html"
     model = models.JobPostModel
     form_class = forms.JobPostForm
     success_url = reverse_lazy("core:jobpost_list")
     context_object_name = "jobpost"
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        form.instance.posted_by = self.request.user
+        return super().form_valid(form)
 
 
 class JobpostListView(views.ListView):
@@ -174,17 +184,25 @@ class AppliedJobDetailView(LoginRequiredMixin, views.DetailView):
     model = models.AppliedModel
     context_object_name = "appliedjob"
 
-class AppliedListView(views.ListView):
+
+class AppliedListView(LoginRequiredMixin, views.ListView):
     template_name = "applied_list.html"
     model = models.AppliedModel
     context_object_name = "appliedjobs"
+
+    def get_queryset(self) -> QuerySet[Any]:
+        qs = super().get_queryset()
+        employer = getattr(self.request.user, "employermodel", False)
+        if employer:
+            jobposts = employer.jobposts.values_list("id", flat=True)
+            qs = qs.filter(jobpost__id__in=jobposts)
+        return qs
+
 
 class MyAppliedListView(views.ListView):
     template_name = "myapplied_list.html"
     model = models.AppliedModel
     context_object_name = "appliedjobs"
-    
-    
 
 
 # class Register(views.CreateView):

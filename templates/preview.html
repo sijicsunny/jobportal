@@ -1,9 +1,13 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="container py-3">
+<div class="container py-3 py-lg-5 min-vh-100">
+  <div class="row">
+    <div class="col">
+      <h1 class="pb-3 border-bottom mb-3">Applied Job</h1>
+    </div>
+  </div>
   <div class="row mb-3">
     <div class="col">
-      <h1 class="pb-2 border-bottom mb-3">Applied Job</h1>
       <div class="card rounded-0">
         <div class="card-body">
           <div class="table-responsive">
@@ -42,7 +46,11 @@
             </table>
           </div>
           <div>
-            <a href="{% url 'core:jobpost_apply' appliedjob.jobpost.id  %}" class="btn btn-primary">Re-Apply</a>            
+            <a
+              href="{% url 'core:jobpost_apply' appliedjob.jobpost.id  %}"
+              class="btn btn-primary"
+              >Re-Apply</a
+            >
           </div>
         </div>
       </div>

@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--style sheets-->
+    <link rel="stylesheet" href="/static/bootstrap-5.2.3-dist/css/bootstrap.css">
+    <link rel ="stylesheet" href="/static/css/style.css" />
+
+    <title> | </title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-info">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Dream Catcher</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="/"
+          >Home</a
+        >
+         
+        
+        <a class="nav-link" href="/accounts/profile/create/"
+          >admin</a
+        >
+        
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="/accounts/logout/"
+          >Logout</a
+        >
+        
+
+        <a class="nav-link" href="#"></a>
+        <a class="nav-link" href="#"></a>
+        <a class="nav-link disabled"></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+
+<div class="container py-3">
+  <div class="row mb-3">
+    <div class="col">
+      <h1 class="pb-2 border-bottom mb-3">Applied Job</h1>
+      <div class="card rounded-0">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th>Post Name:</th>
+                  <td>Python Developer</td>
+                </tr>
+                <tr>
+                  <th>Last Date:</th>
+                  <td>July 31, 2023</td>
+                </tr>
+                <tr>
+                  <th>Resume</th>
+                  <td>
+                    
+                    <a href="" download="/media/core/applied/resumes/soumya_sasidharan_07-03-2018.docx">Download</a>
+                    
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
+    <footer class="bg-info mt-3">
+    <div class="container-lg">
+      <div class="row row-cols-3 g-3">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p>All Rights Are Reserved &copy; 2023</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+<!--scripts-->
+<script src="/static/bootstrap-5.2.3-dist/js/bootstrap.bundle.js"></script>
+<script src="/static/js/script.js"></script>
+
+</body>
+</html>
