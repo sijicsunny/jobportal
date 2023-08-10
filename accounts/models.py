@@ -2,12 +2,12 @@ import datetime
 from typing import Any, Iterable, List
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.db.models.manager import BaseManager
 from django.db.models import QuerySet
+from django.db.models.manager import BaseManager
 from django.urls import reverse
-from django.core.exceptions import ValidationError
 
 
 class TimestampedModel(models.Model):
@@ -37,7 +37,7 @@ class QualificationModel(TimestampedModel):
 # user profile
 class ProfileModel(models.Model):
     def current_year_validator(value):
-        if value > datetime.now().year:
+        if value > datetime.date.today().year:
             raise ValidationError("Year cannot be in the future.")
 
     class GenderChoices(models.TextChoices):

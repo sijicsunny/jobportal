@@ -1,8 +1,9 @@
 {% extends 'base.html' %} {% block content %}
-<div class="container-lg d-flex flex-column gap-3 py-3">
+<div class="container-lg py-lg-5 py-3 min-vh-100">
   <div class="row">
     <div class="col">
       <h1>List of Applied Jobs</h1>
+      <hr />
     </div>
   </div>
   <div class="row">
@@ -24,16 +25,14 @@
 
             <td>{{appliedjob.date|date}}</td>
             <td>
-                {% if appliedjob.resume %}
-                <a
-                  href=""
-                  download="{{appliedjob.resume.url}}"
-                  class="link-primary"
-                  >Download</a
-                >
-                {% else %} No resume found!! {% endif %}
-
-
+              {% if appliedjob.resume %}
+              <a
+                href=""
+                download="{{appliedjob.resume.url}}"
+                class="link-primary"
+                >Download</a
+              >
+              {% else %} No resume found!! {% endif %}
             </td>
           </tr>
           {% empty %}
@@ -47,13 +46,12 @@
   </div>
 </div>
 
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 {% endblock %}

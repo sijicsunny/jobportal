@@ -102,6 +102,18 @@ class JobPostCreateView(LoginRequiredMixin, views.CreateView):
     success_url = reverse_lazy("core:jobpost_list")
     context_object_name = "jobpost"
 
+    def get_form_kwargs(self) -> Dict[str, Any]:
+        kwargs = super().get_form_kwargs()
+        if hasattr(self.request.user, "employermodel"):
+            kwargs.update(
+                {
+                    "initial": {
+                        "company_name": self.request.user.employermodel.company_name,
+                    }
+                }
+            )
+        return kwargs
+
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         form.instance.posted_by = self.request.user
         return super().form_valid(form)
@@ -111,6 +123,15 @@ class JobpostListView(views.ListView):
     template_name = "core/jobpost/jobpost_list.html"
     model = models.JobPostModel
     context_object_name = "jobposts"
+
+    def get_queryset(self) -> QuerySet[Any]:
+        qs = super().get_queryset()
+
+        employer = getattr(self.request.user, "employermodel", False)
+        if employer:
+            qs = qs.filter(posted_by=self.request.user)
+
+        return qs
 
 
 class JobpostDetailView(views.DetailView):
@@ -150,7 +171,7 @@ class DetailView(views.DetailView):
     context_object_name = "jobpost"
 
 
-class JobApplyView(LoginRequiredMixin, views.CreateView):
+class AppliedJobCreateView(LoginRequiredMixin, views.CreateView):
     template_name = "applied.html"
     model = models.AppliedModel
     form_class = forms.AppliedForm
@@ -193,9 +214,13 @@ class AppliedListView(LoginRequiredMixin, views.ListView):
     def get_queryset(self) -> QuerySet[Any]:
         qs = super().get_queryset()
         employer = getattr(self.request.user, "employermodel", False)
+        jobseeker = getattr(self.request.user, "jobseekermodel", False)
         if employer:
             jobposts = employer.jobposts.values_list("id", flat=True)
             qs = qs.filter(jobpost__id__in=jobposts)
+        elif jobseeker:
+            qs = qs.filter(user=self.request.user)
+
         return qs
 
 
